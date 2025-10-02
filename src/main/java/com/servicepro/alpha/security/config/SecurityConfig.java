@@ -1,7 +1,7 @@
-package com.servicepro.alpha.secure.config;
+package com.servicepro.alpha.security.config;
 
-import com.servicepro.alpha.secure.JwtAuthenticationFilter;
-import com.servicepro.alpha.secure.JwtTokenProvider;
+import com.servicepro.alpha.security.JwtAuthenticationFilter;
+import com.servicepro.alpha.security.JwtTokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

@@ -1,4 +1,4 @@
-package com.servicepro.alpha.secure.config;
+package com.servicepro.alpha.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

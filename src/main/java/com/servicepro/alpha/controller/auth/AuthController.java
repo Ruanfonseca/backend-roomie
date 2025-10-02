@@ -3,7 +3,7 @@ package com.servicepro.alpha.controller.auth;
 import com.servicepro.alpha.dto.auth.LoginRequest;
 import com.servicepro.alpha.dto.auth.LoginResponse;
 import com.servicepro.alpha.dto.auth.UserInfo;
-import com.servicepro.alpha.secure.JwtTokenProvider;
+import com.servicepro.alpha.security.JwtTokenProvider;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

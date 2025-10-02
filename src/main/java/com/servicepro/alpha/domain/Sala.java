@@ -27,7 +27,6 @@ public class Sala {
     private String tipo;
 
     @ElementCollection
-    @CollectionTable(name = "equipamento_dias", joinColumns = @JoinColumn(name = "equipamento_id"))
     @Column(name = "equipamento")
     private List<String> equipamento = new ArrayList<>();
 

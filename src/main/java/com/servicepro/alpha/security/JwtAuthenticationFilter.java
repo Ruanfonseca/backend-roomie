@@ -1,4 +1,4 @@
-package com.servicepro.alpha.secure;
+package com.servicepro.alpha.security;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

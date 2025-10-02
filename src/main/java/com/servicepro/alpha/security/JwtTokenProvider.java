@@ -1,4 +1,4 @@
-package com.servicepro.alpha.secure;
+package com.servicepro.alpha.security;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

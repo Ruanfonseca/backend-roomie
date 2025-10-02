@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,6 @@ public class Horario {
     private String semestre;
     private String status;
     private String descricao;
-    private String createdAt;
-    private String updatedAt;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
 }

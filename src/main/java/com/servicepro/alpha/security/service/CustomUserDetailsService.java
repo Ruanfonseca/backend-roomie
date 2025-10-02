@@ -1,4 +1,4 @@
-package com.servicepro.alpha.service;
+package com.servicepro.alpha.security.service;
 
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
