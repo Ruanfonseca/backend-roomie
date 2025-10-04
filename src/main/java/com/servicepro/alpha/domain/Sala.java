@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,4 +34,7 @@ public class Sala {
     private String status;
     private String andar;
     private String descricao;
+
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
 }

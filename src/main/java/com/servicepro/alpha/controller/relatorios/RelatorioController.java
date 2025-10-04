@@ -1,4 +1,4 @@
-package com.servicepro.alpha.controller;
+package com.servicepro.alpha.controller.relatorios;
 
 import com.servicepro.alpha.dto.relatorio.ReportDTO;
 import com.servicepro.alpha.domain.Report;

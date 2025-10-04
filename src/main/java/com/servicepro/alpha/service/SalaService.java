@@ -14,6 +14,7 @@ import java.util.Optional;
 
 @Service
 public class SalaService {
+
     @Autowired
     private SalaRepository repository;
 
@@ -66,5 +67,6 @@ public class SalaService {
         repository.deleteById(Long.valueOf(id));
         return true;
     }
+
     }
 

@@ -1,11 +1,12 @@
 package com.servicepro.alpha.controller.requerimento;
 
 import com.servicepro.alpha.domain.Requerimento;
-import com.servicepro.alpha.domain.Sala;
+import com.servicepro.alpha.domain.RequerimentoLaboratorio;
 import com.servicepro.alpha.dto.requerimento.RequerimentoDTO;
 import com.servicepro.alpha.dto.requerimento.RequerimentoResponseDTO;
-import com.servicepro.alpha.dto.sala.SalaDTO;
-import com.servicepro.alpha.service.RequerimentoService;
+import com.servicepro.alpha.dto.requerimentoLab.RequerimentoLabDTO;
+import com.servicepro.alpha.dto.requerimentoLab.RequerimentoLabResponseDTO;
+import com.servicepro.alpha.service.RequerimentoLabService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,17 +15,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/solicitations")
-public class ReqController {
+@RequestMapping("/api/solicitations/lab")
+public class ReqLabController {
 
     @Autowired
-    RequerimentoService service;
+    RequerimentoLabService service;
+
 
     @GetMapping
-    public ResponseEntity<?> getReqs() {
+    public ResponseEntity<?> getLabReqs() {
 
         try {
-            List<Requerimento> reqs = service.obterTodosRequerimentos();
+            List<RequerimentoLaboratorio> reqs = service.obterTodosRequerimentos();
             return ResponseEntity.ok(reqs);
         } catch (Exception e) {
             e.printStackTrace();
@@ -34,18 +36,16 @@ public class ReqController {
         }
     }
 
-
-
     @PostMapping
     public ResponseEntity<?> create(@RequestBody RequerimentoDTO req) {
         try {
             // Verificando se já existe um professor cadastrado
-            Requerimento reqExistente = service.buscarRequerimento(req.getSala(),req.getDia(),req.getHorarioInicial(),req.getHorarioFinal());
+            RequerimentoLaboratorio reqExistente = service.buscarRequerimento(req.getSala(),req.getDia(),req.getHorarioInicial(),req.getHorarioFinal());
 
             if (reqExistente != null) {
                 return ResponseEntity
                         .status(HttpStatus.CONFLICT)
-                        .body("Já existe um requerimento cadastrado com essa sala no dia solicitado.");
+                        .body("Já existe um requerimento cadastrado com essa laboratorio no dia solicitado.");
             }
 
             service.salvarReq(req);
@@ -62,9 +62,9 @@ public class ReqController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable String id, @RequestBody RequerimentoDTO dto) {
+    public ResponseEntity<?> update(@PathVariable String id, @RequestBody RequerimentoLabDTO dto) {
         try {
-            Requerimento req = service.atualizarReq(id, dto);
+            RequerimentoLaboratorio req = service.atualizarReq(id, dto);
             if (req == null) {
                 return ResponseEntity
                         .status(HttpStatus.NOT_FOUND)
@@ -80,7 +80,7 @@ public class ReqController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteReq(@PathVariable String id) {
+    public ResponseEntity<?> deleteReqLab(@PathVariable String id) {
         try {
             boolean deletado = service.delete(id);
             if (!deletado) {
@@ -98,9 +98,9 @@ public class ReqController {
     }
 
     @PostMapping("/baixa")
-    public ResponseEntity<?> baixaRequerimento(@RequestBody RequerimentoDTO dto) {
+    public ResponseEntity<?> baixaRequerimento(@RequestBody RequerimentoLabDTO dto) {
         try {
-            Requerimento reqExistente = service.buscarPorId(dto.getId());
+            RequerimentoLaboratorio reqExistente = service.buscarPorId(dto.getId());
 
             if (reqExistente == null) {
                 return ResponseEntity
@@ -108,7 +108,7 @@ public class ReqController {
                         .body("Esse requerimento não existe");
             }
 
-            service.darBaixa(reqExistente);
+            service.darBaixa(dto);
 
             return ResponseEntity.ok().build();
 
@@ -124,7 +124,7 @@ public class ReqController {
     public ResponseEntity<?> buscarPorToken(@RequestBody String token) {
         try {
             // Verificando se já existe um professor cadastrado
-            Requerimento reqExistente = service.buscarToken(token);
+            RequerimentoLaboratorio reqExistente = service.buscarToken(token);
 
             if (reqExistente == null) {
                 return ResponseEntity
@@ -142,7 +142,7 @@ public class ReqController {
     public ResponseEntity<?> getBuscaParaAgenda() {
 
         try {
-            List<RequerimentoResponseDTO> reqsAgenda = service.buscandoParaAgenda();
+            List<RequerimentoLabResponseDTO> reqsAgenda = service.buscandoParaAgenda();
             return ResponseEntity.ok(reqsAgenda);
         } catch (Exception e) {
             e.printStackTrace();
@@ -152,4 +152,3 @@ public class ReqController {
         }
     }
 }
-

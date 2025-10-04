@@ -116,7 +116,6 @@ public class RequerimentoService {
         return repository.findByToken(token);
     }
 
-
     public List<RequerimentoResponseDTO> buscandoParaAgenda() {
         return repository.findAll()
                 .stream()
@@ -162,7 +161,6 @@ public class RequerimentoService {
                 })
                 .collect(Collectors.toList());
     }
-
 
     public boolean delete(String id) {
         Optional<Requerimento> optional = repository.findById(Long.valueOf(id));
