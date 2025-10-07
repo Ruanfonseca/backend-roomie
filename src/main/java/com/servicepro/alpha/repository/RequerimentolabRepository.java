@@ -5,12 +5,26 @@ import com.servicepro.alpha.domain.Laboratorio;
 import com.servicepro.alpha.domain.RequerimentoLaboratorio;
 import com.servicepro.alpha.domain.Sala;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RequerimentolabRepository extends JpaRepository<RequerimentoLaboratorio,Long> {
 
-    RequerimentoLaboratorio findByLaboratorioReq(Sala sala, Horario horarioInicial, Horario horarioFinal, String dia);
+    @Query("SELECT r FROM RequerimentoLaboratorio r " +
+            "WHERE r.laboratorio = :laboratorio " +
+            "  AND r.dia = :dia " +
+            "  AND (r.horarioInicio.startTime < :horarioFinal AND r.horarioFinal.endTime > :horarioInicial)")
+    RequerimentoLaboratorio findByLaboratorioReq(
+            @Param("laboratorio") Laboratorio laboratorio,
+            @Param("horarioInicial") Horario horarioInicial,
+            @Param("horarioFinal") Horario horarioFinal,
+            @Param("dia") String dia
+    );
 
-    RequerimentoLaboratorio findByToken(String token);
+
+    @Query("SELECT r FROM RequerimentoLaboratorio r WHERE r.token = :token")
+    RequerimentoLaboratorio findByToken(@Param("token") String token);
+
 }

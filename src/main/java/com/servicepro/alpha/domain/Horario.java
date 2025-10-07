@@ -22,18 +22,18 @@ public class Horario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // alterado para Long (mais comum para ID auto gerado)
 
-    private String nome;
-    private String horarioInicial;
-    private String horarioFinal;
+    private String name;
+    private String startTime;
+    private String endTime;
 
     @ElementCollection
     @CollectionTable(name = "horario_dias", joinColumns = @JoinColumn(name = "horario_id"))
     @Column(name = "dia")
-    private List<String> dias = new ArrayList<>(); // substituído String[] por List<String>
+    private List<String> days = new ArrayList<>(); // substituído String[] por List<String>
 
-    private String semestre;
+    private String semester;
     private String status;
-    private String descricao;
+    private String description;
     private LocalDate createdAt;
     private LocalDate updatedAt;
 }

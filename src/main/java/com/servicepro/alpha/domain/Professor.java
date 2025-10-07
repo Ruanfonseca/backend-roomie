@@ -28,9 +28,10 @@ public class Professor {
     private String phone;
     private String departamento;
     private String status;
+    private String especialidade;
     private Integer totalRequests;
     private String approvedRequests;
-    private String registerNumber;
+    private String senha;
     private LocalDate createdAt;
     private LocalDate updatedAt;
 

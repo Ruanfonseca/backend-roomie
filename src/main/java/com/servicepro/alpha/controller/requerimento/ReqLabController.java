@@ -37,10 +37,10 @@ public class ReqLabController {
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody RequerimentoDTO req) {
+    public ResponseEntity<?> create(@RequestBody RequerimentoLabDTO req) {
         try {
             // Verificando se já existe um professor cadastrado
-            RequerimentoLaboratorio reqExistente = service.buscarRequerimento(req.getSala(),req.getDia(),req.getHorarioInicial(),req.getHorarioFinal());
+            RequerimentoLaboratorio reqExistente = service.buscarRequerimento(req.getLaboratorio(),req.getDia(),req.getHorarioInicio(),req.getHorarioFinal());
 
             if (reqExistente != null) {
                 return ResponseEntity
@@ -138,7 +138,7 @@ public class ReqLabController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/agenda/lab")
     public ResponseEntity<?> getBuscaParaAgenda() {
 
         try {

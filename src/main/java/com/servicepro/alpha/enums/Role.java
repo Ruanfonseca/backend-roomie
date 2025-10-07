@@ -4,5 +4,5 @@ public enum Role {
     ADMIN,
     LOGISTICA,
     PROFESSOR,
-    ADMIN_LABORATORIO,
+    ADMIN_LAB,
 }

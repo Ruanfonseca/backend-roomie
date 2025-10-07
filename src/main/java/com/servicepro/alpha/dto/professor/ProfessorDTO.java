@@ -9,7 +9,9 @@ public class ProfessorDTO {
     String phone;
     String department;
     String status;
+    String specialization;
     Integer totalRequests;
+    String password;
     String approvedRequests;
     String registerNumber;
 

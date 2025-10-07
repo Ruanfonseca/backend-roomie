@@ -2,6 +2,7 @@ package com.servicepro.alpha.controller.requerimento;
 
 import com.servicepro.alpha.domain.Requerimento;
 import com.servicepro.alpha.domain.Sala;
+import com.servicepro.alpha.dto.requerimento.RequerimentoBaixaDTO;
 import com.servicepro.alpha.dto.requerimento.RequerimentoDTO;
 import com.servicepro.alpha.dto.requerimento.RequerimentoResponseDTO;
 import com.servicepro.alpha.dto.sala.SalaDTO;
@@ -34,13 +35,11 @@ public class ReqController {
         }
     }
 
-
-
     @PostMapping
     public ResponseEntity<?> create(@RequestBody RequerimentoDTO req) {
         try {
             // Verificando se já existe um professor cadastrado
-            Requerimento reqExistente = service.buscarRequerimento(req.getSala(),req.getDia(),req.getHorarioInicial(),req.getHorarioFinal());
+            Requerimento reqExistente = service.buscarRequerimento(req.getDia(),req.getScheduleInitial(),req.getScheduleEnd());
 
             if (reqExistente != null) {
                 return ResponseEntity
@@ -98,7 +97,7 @@ public class ReqController {
     }
 
     @PostMapping("/baixa")
-    public ResponseEntity<?> baixaRequerimento(@RequestBody RequerimentoDTO dto) {
+    public ResponseEntity<?> baixaRequerimento(@RequestBody RequerimentoBaixaDTO dto) {
         try {
             Requerimento reqExistente = service.buscarPorId(dto.getId());
 
@@ -138,18 +137,18 @@ public class ReqController {
         }
     }
 
-    @GetMapping
-    public ResponseEntity<?> getBuscaParaAgenda() {
-
-        try {
-            List<RequerimentoResponseDTO> reqsAgenda = service.buscandoParaAgenda();
-            return ResponseEntity.ok(reqsAgenda);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao buscar requerimentos para tela de agenda .");
-        }
-    }
+//    @GetMapping("/agenda")
+//    public ResponseEntity<?> getBuscaParaAgenda() {
+//
+//        try {
+//            List<RequerimentoResponseDTO> reqsAgenda = service.buscandoParaAgenda();
+//            return ResponseEntity.ok(reqsAgenda);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return ResponseEntity
+//                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body("Erro ao buscar requerimentos para tela de agenda .");
+//        }
+//    }
 }
 

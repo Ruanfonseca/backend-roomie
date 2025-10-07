@@ -20,7 +20,7 @@ import java.util.List;
 public class AnaliseController {
 
     @Autowired
-    private RequerimentoService requimentoService;
+    private RequerimentoService requerimentoService;
 
     @Autowired
     private RequerimentoLabService requimentoLabService;
@@ -29,7 +29,7 @@ public class AnaliseController {
     public ResponseEntity<?> getAnalise() {
         try {
             // Busca todos os requerimentos
-            List<Requerimento> requerimentoSala = requimentoService.obterTodosRequerimentos();
+            List<Requerimento> requerimentoSala = requerimentoService.obterTodosRequerimentos();
             List<RequerimentoLaboratorio> requerimentoLaboratorios = requimentoLabService.obterTodosRequerimentos();
 
             // Junta as listas

@@ -1,11 +1,8 @@
 package com.servicepro.alpha.controller.usuarios;
 
 
-import com.servicepro.alpha.domain.Sala;
-import com.servicepro.alpha.domain.User;
-import com.servicepro.alpha.dto.sala.SalaDTO;
+import com.servicepro.alpha.domain.Usuario;
 import com.servicepro.alpha.dto.usuario.UsuarioDTO;
-import com.servicepro.alpha.service.SalaService;
 import com.servicepro.alpha.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
+
 public class UsuarioController {
     @Autowired
     private UserService service;
@@ -23,7 +21,7 @@ public class UsuarioController {
     @GetMapping
     public ResponseEntity<?> getUsers() {
         try {
-            List<User> usuarios = service.buscarUsuarios();
+            List<Usuario> usuarios = service.buscarUsuarios();
             return ResponseEntity.ok(usuarios);
         } catch (Exception e) {
             e.printStackTrace();
@@ -37,7 +35,7 @@ public class UsuarioController {
     public ResponseEntity<?> createUser(@RequestBody UsuarioDTO dto) {
         try {
             // Verificando se já existe um professor cadastrado
-            User usuarioExistente = service.buscarPorMatricula(dto.getMatricula());
+            Usuario usuarioExistente = service.buscarPorMatricula(dto.getRegisterNumber());
 
             if (usuarioExistente != null) {
                 return ResponseEntity
@@ -59,9 +57,10 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable String id,@RequestBody UsuarioDTO dto) {
+    public ResponseEntity<?> update(@PathVariable Long id,@RequestBody UsuarioDTO dto) {
+       System.out.println(dto);
         try {
-            User usuario = service.atualizarUsuario(id, dto);
+            Usuario usuario = service.atualizarUsuario(id, dto);
             if (usuario == null) {
                 return ResponseEntity
                         .status(HttpStatus.NOT_FOUND)
@@ -76,8 +75,8 @@ public class UsuarioController {
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable String id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
         try {
             boolean deletado = service.deletarUsuario(id);
             if (!deletado) {

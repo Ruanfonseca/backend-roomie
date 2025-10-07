@@ -24,36 +24,38 @@ public class Requerimento {
 
 
     @OneToOne
-    @JoinColumn(name = "sala_id")
-    private Sala sala;
+    @JoinColumn(name = "room_id")
+    private Sala room;
 
     @OneToOne
     @JoinColumn(name = "horario_inicial_id")
-    private Horario horarioInicial;
+    private Horario scheduleInitial;
 
     @OneToOne
     @JoinColumn(name = "horario_final_id")
-    private Horario horarioFinal;
+    private Horario scheduleEnd;
 
 
-    private String disciplina;
-    private String numeroAluno;
+    private String materia;
+    private String numberOfPeople;
     private String dia;
-
+    @OneToOne
+    @JoinColumn(name = "required_by_id")
+    private Professor requiredBy;
     private String token;
-    private String blocoPreferido;
-    private String tipoSala;
+    private String blockPrefer;
+    private String typeOfRoom;
     private String registration;
 
     @ElementCollection
-    @CollectionTable(name = "equipamentos", joinColumns = @JoinColumn(name = "equipamento_id"))
-    @Column(name = "equipamento")
-    private List<String> equipamentoNecessario = new ArrayList<>();
+    @CollectionTable(name = "equipament", joinColumns = @JoinColumn(name = "equipament_id"))
+    @Column(name = "equipament")
+    private List<String> equipament = new ArrayList<>();
 
-    private String observacoes;
+    private String observations;
     private String status;
-    private String aprovadoPorquem;
-    private String rejeitadoPorquem;
+    private String approvedBy;
+    private String rejectionReason;
     private LocalDate createdAt;
     private LocalDate updatedAt;
 

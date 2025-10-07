@@ -8,14 +8,12 @@ import java.util.List;
 
 @Data
 public class SalaDTO {
-     String nome;
-     String bloco;
-     String capacidade;
-     String tipo;
-
-     List<String> equipamento;
-
+     String name;
+     String block;
+     String capacity;
+     String type;
+     List<String> equipment;
      String status;
-     String andar;
-     String descricao;
+     String floor;
+     String description;
 }

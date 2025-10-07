@@ -23,21 +23,20 @@ public class HorarioService {
         return repository.findAll();
     }
 
-    public Horario buscarHorarioPorNome(String nome) {
+    public Horario buscarHorarioPorNome(String name) {
 
-        return repository.findByNome(nome);
+        return repository.findByName(name);
     }
 
     public Horario salvarHorario(HorarioDTO dto) {
         Horario horario = new Horario();
-        horario.setNome(dto.getNome());
-        horario.setHorarioInicial(dto.getHorarioInicial());
-        horario.setHorarioFinal(dto.getHorarioFinal());
-        horario.setDias(dto.getDias());
-        horario.setSemestre(dto.getSemestre());
+        horario.setName(dto.getName());
+        horario.setStartTime(dto.getStartTime());
+        horario.setEndTime(dto.getEndTime());
+        horario.setDays(dto.getDays());
+        horario.setSemester(dto.getSemester());
         horario.setStatus(dto.getStatus());
-        horario.setDescricao(dto.getDescricao());
-        horario.setUpdatedAt(LocalDate.now());
+        horario.setDescription(dto.getDescription());
         horario.setCreatedAt(LocalDate.now());
 
         return repository.save(horario);
@@ -49,19 +48,18 @@ public class HorarioService {
             return null;
         }
         Horario horario = optional.get();
-        horario.setNome(dto.getNome());
-        horario.setHorarioInicial(dto.getHorarioInicial());
-        horario.setHorarioFinal(dto.getHorarioFinal());
-        horario.setDias(dto.getDias());
-        horario.setSemestre(dto.getSemestre());
+        horario.setName(dto.getName());
+        horario.setStartTime(dto.getStartTime());
+        horario.setEndTime(dto.getEndTime());
+        horario.setDays(dto.getDays());
+        horario.setSemester(dto.getSemester());
         horario.setStatus(dto.getStatus());
-        horario.setDescricao(dto.getDescricao());
+        horario.setDescription(dto.getDescription());
         horario.setUpdatedAt(LocalDate.now());
-        horario.setCreatedAt(LocalDate.now());
+
         // Atualize outros campos do DTO conforme necessário
         return repository.save(horario);
     }
-
 
     public boolean deletarHorario(String id) {
         Optional<Horario> optional = repository.findById(Long.valueOf(id));

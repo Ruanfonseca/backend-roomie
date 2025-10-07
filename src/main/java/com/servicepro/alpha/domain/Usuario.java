@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User {
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +25,12 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private String departamento;
-    private String matricula;
+    private String department;
+    private String registerNumber;
+    @Enumerated(EnumType.STRING)
     private Role role;
+    private String status;
+    private String phone;
     private LocalDate updatedAt;
     private LocalDate createdAt;
 

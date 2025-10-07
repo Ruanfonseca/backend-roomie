@@ -37,7 +37,7 @@ public class SalaController {
     public ResponseEntity<?> createRoom(@RequestBody SalaDTO dto) {
         try {
             // Verificando se já existe um professor cadastrado
-            Sala salaExistente = service.buscarSala(dto.getNome());
+            Sala salaExistente = service.buscarSala(dto.getName());
 
             if (salaExistente != null) {
                 return ResponseEntity

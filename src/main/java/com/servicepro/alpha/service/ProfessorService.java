@@ -27,35 +27,51 @@ public class ProfessorService {
     public Professor salvarProfessor(ProfessorDTO dto) {
         Professor professor = new Professor();
         professor.setNome(dto.getName());
-        professor.setRegisterNumber(dto.getRegisterNumber());
         professor.setEmail(dto.getEmail());
         professor.setPhone(dto.getPhone());
+        professor.setDepartamento(dto.getDepartment());
         professor.setStatus(dto.getStatus());
-        professor.setStatus(dto.getDepartment());
+        professor.setMatricula(dto.getRegisterNumber());
+        professor.setEspecialidade(dto.getSpecialization());
+        professor.setSenha(dto.getPassword());
         professor.setTotalRequests(dto.getTotalRequests());
         professor.setCreatedAt(LocalDate.now());
-
-
 
         return repository.save(professor);
     }
 
     public Professor atualizarProfessor(String id, ProfessorDTO dto) {
-        Optional<Professor> optional = repository.findById(Long.valueOf(id));
-        if (optional.isEmpty()) {
+
+        try {
+            Optional<Professor> optional = repository.findById(Long.valueOf(id));
+
+            if (optional.isEmpty()) {
+                System.out.println("Nenhum professor encontrado com o ID informado: " + id);
+                return null;
+            }
+
+            Professor professor = optional.get();
+
+            // Atualizando campos
+            professor.setNome(dto.getName());
+            professor.setEmail(dto.getEmail());
+            professor.setPhone(dto.getPhone());
+            professor.setDepartamento(dto.getDepartment());
+            professor.setStatus(dto.getStatus());
+            professor.setMatricula(dto.getRegisterNumber());
+            professor.setSenha(dto.getPassword());
+            professor.setEspecialidade(dto.getSpecialization());
+            professor.setTotalRequests(dto.getTotalRequests());
+            professor.setUpdatedAt(LocalDate.now());
+
+            Professor atualizado = repository.save(professor);
+
+            return atualizado;
+
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
-        Professor professor = optional.get();
-        professor.setNome(dto.getName());
-        professor.setRegisterNumber(dto.getRegisterNumber());
-        professor.setEmail(dto.getEmail());
-        professor.setPhone(dto.getPhone());
-        professor.setStatus(dto.getStatus());
-        professor.setStatus(dto.getDepartment());
-        professor.setTotalRequests(professor.getTotalRequests() + dto.getTotalRequests());
-        professor.setCreatedAt(LocalDate.now());
-        // Atualize outros campos do DTO conforme necessário
-        return repository.save(professor);
     }
 
     public boolean deletarProfessor(String id) {

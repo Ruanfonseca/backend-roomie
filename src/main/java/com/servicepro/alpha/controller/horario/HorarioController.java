@@ -18,26 +18,33 @@ import java.util.List;
 @RequestMapping("/api/schedule")
 public class HorarioController {
 
+    @Autowired
  private HorarioService service;
 
     @GetMapping
     public ResponseEntity<?> getSchedule() {
         try {
             List<Horario> horarios = service.buscarHorarios();
+
             return ResponseEntity.ok(horarios);
+
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("⚠️ Erro ao buscar horários: " + e.getMessage());
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao buscar horarios.");
+                    .body("Erro ao buscar horários.");
         }
     }
 
+
     @PostMapping
     public ResponseEntity<?> createSchedule(@RequestBody HorarioDTO dto) {
+        System.out.println("Horario recebido: " + dto);
+
         try {
             // Verificando se já existe um professor cadastrado
-            Horario horarioExistente = service.buscarHorarioPorNome(dto.getNome());
+            Horario horarioExistente = service.buscarHorarioPorNome(dto.getName());
 
             if (horarioExistente != null) {
                 return ResponseEntity

@@ -23,20 +23,20 @@ public class SalaService {
 
     }
 
-    public Sala buscarSala(String nome) {
-        return repository.findByName(nome);
+    public Sala buscarSala(String name) {
+        return repository.findByName(name);
     }
 
     public Sala salvarSala(SalaDTO dto) {
         Sala sala = new Sala();
-        sala.setNome(dto.getNome());
-        sala.setBloco(dto.getBloco());
-        sala.setCapacidade(dto.getCapacidade());
-        sala.setTipo(dto.getTipo());
-        sala.setEquipamento(dto.getEquipamento());
-        sala.setAndar(dto.getAndar());
+        sala.setName(dto.getName());
+        sala.setBlock(dto.getBlock());
+        sala.setCapacity(dto.getCapacity());
+        sala.setType(dto.getType());
+        sala.setEquipment(dto.getEquipment());
+        sala.setFloor(dto.getFloor());
         sala.setStatus(dto.getStatus());
-        sala.setDescricao(dto.getDescricao());
+        sala.setDescription(dto.getDescription());
 
         return repository.save(sala);
     }
@@ -47,14 +47,14 @@ public class SalaService {
             return null;
         }
         Sala sala = optional.get();
-        sala.setNome(dto.getNome());
-        sala.setBloco(dto.getBloco());
-        sala.setCapacidade(dto.getCapacidade());
-        sala.setTipo(dto.getTipo());
-        sala.setEquipamento(dto.getEquipamento());
-        sala.setAndar(dto.getAndar());
+        sala.setName(dto.getName());
+        sala.setBlock(dto.getBlock());
+        sala.setCapacity(dto.getCapacity());
+        sala.setType(dto.getType());
+        sala.setEquipment(dto.getEquipment());
+        sala.setFloor(dto.getFloor());
         sala.setStatus(dto.getStatus());
-        sala.setDescricao(dto.getDescricao());
+        sala.setDescription(dto.getDescription());
         // Atualize outros campos do DTO conforme necessário
         return repository.save(sala);
     }

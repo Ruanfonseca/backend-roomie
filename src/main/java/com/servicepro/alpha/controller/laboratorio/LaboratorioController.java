@@ -61,6 +61,7 @@ public class LaboratorioController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable String id,@RequestBody LaboratorioDTO dto) {
+        System.out.println(dto);
         try {
             Laboratorio laboratorio = service.atualizarLab(id, dto);
             if (laboratorio == null) {

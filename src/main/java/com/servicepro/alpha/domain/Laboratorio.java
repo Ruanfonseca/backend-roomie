@@ -35,6 +35,7 @@ public class Laboratorio {
     private String status;
     private String andar;
     private String descricao;
+    @Enumerated(EnumType.STRING)
     private TipoLab tipoLab;
     private LocalDate createdAt;
     private LocalDate updatedAt;

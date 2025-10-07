@@ -1,25 +1,34 @@
 package com.servicepro.alpha.security.service;
 
+import com.servicepro.alpha.domain.Usuario;
+import com.servicepro.alpha.repository.UsuarioRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    // Aqui você pode buscar no banco de dados (JpaRepository)
+    private final UsuarioRepository userRepository;
+
+    public CustomUserDetailsService(UsuarioRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        // Mockado para exemplo
-        if (email.equals("admin@teste.com")) {
-            return User.builder()
-                    .username("admin@teste.com")
-                    .password("{noop}123456") // {noop} = sem criptografia
-                    .roles("ADMIN")
-                    .build();
-        }
-        throw new UsernameNotFoundException("Usuário não encontrado");
+        Usuario usuario = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
+
+        return User.builder()
+                .username(usuario.getEmail())
+                .password(usuario.getPassword()) // hash do banco
+                .roles(usuario.getRole().name())
+                .build();
     }
+
 }

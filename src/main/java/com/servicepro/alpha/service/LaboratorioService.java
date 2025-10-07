@@ -55,7 +55,7 @@ public class LaboratorioService {
         lab.setDescricao(dto.getDescricao());
         lab.setTipoLab(dto.getTipoLab());
         lab.setDescricao(dto.getDescricao());
-        lab.setCreatedAt(LocalDate.now());
+        lab.setUpdatedAt(LocalDate.now());
         repository.save(lab);
         return lab;
     }

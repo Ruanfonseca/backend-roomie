@@ -8,13 +8,13 @@ import java.util.List;
 @Data
 public class HorarioDTO {
 
-    private String nome;
-    private String horarioInicial;
-    private String horarioFinal;
-    private List<String> dias;
-    private String semestre;
+    private String name;
+    private String startTime;
+    private String endTime;
+    private List<String> days;
+    private String semester;
     private String status;
-    private String descricao;
+    private String description;
     private String createdAt;
     private String updatedAt;
 }

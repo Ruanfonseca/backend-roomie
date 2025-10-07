@@ -22,18 +22,18 @@ public class Sala {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // alterado para Long (mais comum para ID auto gerado)
 
-    private String nome;
-    private String bloco;
-    private String capacidade;
-    private String tipo;
+    private String name;
+    private String block;
+    private String capacity;
+    private String type;
 
     @ElementCollection
     @Column(name = "equipamento")
-    private List<String> equipamento = new ArrayList<>();
+    private List<String> equipment = new ArrayList<>();
 
     private String status;
-    private String andar;
-    private String descricao;
+    private String floor;
+    private String description;
 
     private LocalDate createdAt;
     private LocalDate updatedAt;

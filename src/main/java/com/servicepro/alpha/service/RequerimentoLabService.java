@@ -1,13 +1,10 @@
 package com.servicepro.alpha.service;
 
 import com.servicepro.alpha.domain.*;
-import com.servicepro.alpha.dto.requerimento.RequerimentoDTO;
-import com.servicepro.alpha.dto.requerimento.RequerimentoResponseDTO;
 import com.servicepro.alpha.dto.requerimentoLab.RequerimentoLabDTO;
 import com.servicepro.alpha.dto.requerimentoLab.RequerimentoLabResponseDTO;
 import com.servicepro.alpha.repository.RequerimentolabRepository;
 import com.servicepro.alpha.repository.UsuarioRepository;
-import com.servicepro.alpha.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,15 +26,15 @@ public class RequerimentoLabService {
         return repository.findAll();
     }
 
-    public RequerimentoLaboratorio buscarRequerimento(Sala sala, String dia, Horario horarioInicial, Horario horarioFinal) {
-        return repository.findByLaboratorioReq(sala,horarioInicial,horarioFinal,dia);
+    public RequerimentoLaboratorio buscarRequerimento(Laboratorio laboratorio, String dia, Horario horarioInicial, Horario horarioFinal) {
+        return repository.findByLaboratorioReq(laboratorio,horarioInicial,horarioFinal,dia);
     }
 
     public RequerimentoLaboratorio buscarPorId(Long id) {
         return repository.findById(id).orElse(null);
     }
 
-    public RequerimentoLaboratorio salvarReq(RequerimentoDTO dto) {
+    public RequerimentoLaboratorio salvarReq(RequerimentoLabDTO dto) {
         RequerimentoLaboratorio requerimentolab = new RequerimentoLaboratorio();
         return repository.save(requerimentolab);
     }
@@ -123,11 +120,11 @@ public class RequerimentoLabService {
 
                     // formatação "HH:mm - HH:mm"
                     if (req.getHorarioInicio() != null && req.getHorarioFinal() != null) {
-                        dto.setTime(req.getHorarioInicio().getHorarioInicial() + " - " + req.getHorarioFinal().getHorarioFinal());
+                        dto.setTime(req.getHorarioInicio().getStartTime() + " - " + req.getHorarioFinal().getEndTime());
                     }
 
                     // pega o nome do usuário pela matrícula
-                    User user = userRepository.findByMatricula(req.getMatriculaDocente());
+                    Usuario user = userRepository.findByMatricula(req.getMatriculaDocente());
                     dto.setNomeDocente(user != null ? user.getName() : req.getNomeDocente()); // fallback no nome salvo
                     dto.setMatriculaDocente(req.getMatriculaDocente());
                     dto.setEmailDocente(req.getEmailDocente());

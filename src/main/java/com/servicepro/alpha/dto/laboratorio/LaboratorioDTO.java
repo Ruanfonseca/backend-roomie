@@ -13,9 +13,7 @@ public class LaboratorioDTO {
     private String nome;
     private String bloco;
     private String capacidade;
-
     private List<String> equipamento = new ArrayList<>();
-
     private String status;
     private String andar;
     private String descricao;
