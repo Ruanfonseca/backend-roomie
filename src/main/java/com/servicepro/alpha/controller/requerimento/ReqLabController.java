@@ -1,11 +1,13 @@
 package com.servicepro.alpha.controller.requerimento;
 
+import com.servicepro.alpha.domain.Professor;
 import com.servicepro.alpha.domain.Requerimento;
 import com.servicepro.alpha.domain.RequerimentoLaboratorio;
 import com.servicepro.alpha.dto.requerimento.RequerimentoDTO;
 import com.servicepro.alpha.dto.requerimento.RequerimentoResponseDTO;
 import com.servicepro.alpha.dto.requerimentoLab.RequerimentoLabDTO;
 import com.servicepro.alpha.dto.requerimentoLab.RequerimentoLabResponseDTO;
+import com.servicepro.alpha.repository.ProfessorRepository;
 import com.servicepro.alpha.service.RequerimentoLabService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,9 @@ public class ReqLabController {
 
     @Autowired
     RequerimentoLabService service;
+
+    @Autowired
+    ProfessorRepository professorRepository;
 
 
     @GetMapping
@@ -38,14 +43,15 @@ public class ReqLabController {
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody RequerimentoLabDTO req) {
-        try {
-            // Verificando se já existe um professor cadastrado
-            RequerimentoLaboratorio reqExistente = service.buscarRequerimento(req.getLaboratorio(),req.getDia(),req.getHorarioInicio(),req.getHorarioFinal());
 
-            if (reqExistente != null) {
+        try {
+            // Verifica se já existe um professor cadastrado
+            Professor profExiste = professorRepository.findByMatricula(req.getMatriculaDocente());
+
+            if (profExiste == null) {
                 return ResponseEntity
-                        .status(HttpStatus.CONFLICT)
-                        .body("Já existe um requerimento cadastrado com essa laboratorio no dia solicitado.");
+                        .status(HttpStatus.NOT_FOUND)
+                        .body("Não existe professor com a matrícula " + req.getMatriculaDocente());
             }
 
             service.salvarReq(req);
@@ -53,6 +59,7 @@ public class ReqLabController {
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .build();
+
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity
@@ -62,7 +69,7 @@ public class ReqLabController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable String id, @RequestBody RequerimentoLabDTO dto) {
+    public ResponseEntity<?> update(@PathVariable String id, @RequestBody RequerimentoLabResponseDTO dto) {
         try {
             RequerimentoLaboratorio req = service.atualizarReq(id, dto);
             if (req == null) {
@@ -97,28 +104,28 @@ public class ReqLabController {
         }
     }
 
-    @PostMapping("/baixa")
-    public ResponseEntity<?> baixaRequerimento(@RequestBody RequerimentoLabDTO dto) {
-        try {
-            RequerimentoLaboratorio reqExistente = service.buscarPorId(dto.getId());
-
-            if (reqExistente == null) {
-                return ResponseEntity
-                        .status(HttpStatus.CONFLICT)
-                        .body("Esse requerimento não existe");
-            }
-
-            service.darBaixa(dto);
-
-            return ResponseEntity.ok().build();
-
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro no servidor.");
-        }
-
-    }
+//    @PostMapping("/baixa")
+//    public ResponseEntity<?> baixaRequerimento(@RequestBody RequerimentoLabDTO dto) {
+//        try {
+//            RequerimentoLaboratorio reqExistente = service.buscarPorId(dto.getId());
+//
+//            if (reqExistente == null) {
+//                return ResponseEntity
+//                        .status(HttpStatus.CONFLICT)
+//                        .body("Esse requerimento não existe");
+//            }
+//
+//            service.darBaixa(dto);
+//
+//            return ResponseEntity.ok().build();
+//
+//        } catch (Exception e) {
+//            return ResponseEntity
+//                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body("Erro no servidor.");
+//        }
+//
+//    }
 
     @PostMapping("/search/token")
     public ResponseEntity<?> buscarPorToken(@RequestBody String token) {
@@ -138,17 +145,17 @@ public class ReqLabController {
         }
     }
 
-    @GetMapping("/agenda/lab")
-    public ResponseEntity<?> getBuscaParaAgenda() {
-
-        try {
-            List<RequerimentoLabResponseDTO> reqsAgenda = service.buscandoParaAgenda();
-            return ResponseEntity.ok(reqsAgenda);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao buscar requerimentos para tela de agenda .");
-        }
-    }
+//    @GetMapping("/agenda/lab")
+//    public ResponseEntity<?> getBuscaParaAgenda() {
+//
+//        try {
+//            List<RequerimentoLabResponseDTO> reqsAgenda = service.buscandoParaAgenda();
+//            return ResponseEntity.ok(reqsAgenda);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return ResponseEntity
+//                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body("Erro ao buscar requerimentos para tela de agenda .");
+//        }
+//    }
 }

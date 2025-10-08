@@ -13,33 +13,24 @@ import java.util.List;
 
 @Data
 public class RequerimentoLabDTO {
-    private Long id;
-    private String nomeDocente;
-    private String matriculaDocente;
-    private String emailDocente;
-    private String disciplina;
     private String curso;
-    private String unidadeAcademica;
-    private String tituloAula;
     private String dia;
-    private Boolean presencaTecnicoLaboratorista;
-    private String token;
+    private String disciplina;
+    private String emailDocente;
+    private Horario horarioFinal;
+    private Horario horarioInicio;
+    private String matriculaDocente;
+    private String nomeDocente;
+    private String numeroAluno;
     private String numeroGruposAlunos;
+    private Boolean presencaTecnicoLaboratorista;
+    private String tipoLab;
+    private String tituloAula;
+    private String unidadeAcademica;
     private String nomeTecnicoLaboratorista;
     private String status;
-
-    private Horario horarioInicio;
-
-
-    private Horario horarioFinal;
-
-
-    private Laboratorio laboratorio;
-
-    private String numeroAluno;
-
     private List<UtilitariosDTO> utilitarios = new ArrayList<>();
+    private String confirmacaoLeitura;
 
-    private String aprovadoPorquem;
-    private String rejeitadoPorquem;
+
 }

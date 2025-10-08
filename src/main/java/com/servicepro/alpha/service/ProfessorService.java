@@ -46,7 +46,6 @@ public class ProfessorService {
             Optional<Professor> optional = repository.findById(Long.valueOf(id));
 
             if (optional.isEmpty()) {
-                System.out.println("Nenhum professor encontrado com o ID informado: " + id);
                 return null;
             }
 

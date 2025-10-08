@@ -58,32 +58,24 @@ public class ProfessorController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable String id, @RequestBody ProfessorDTO dto) {
-        System.out.println("📝 [UPDATE PROFESSOR] Iniciando atualização do professor...");
-        System.out.println("📦 ID recebido: " + id);
-        System.out.println("📤 Dados recebidos (DTO): " + dto);
 
         try {
             Professor professor = service.atualizarProfessor(id, dto);
 
             if (professor == null) {
-                System.out.println("⚠️ Nenhum professor encontrado com o ID: " + id);
                 return ResponseEntity
                         .status(HttpStatus.NOT_FOUND)
                         .body("Professor não encontrado.");
             }
 
-            System.out.println("✅ Professor atualizado com sucesso: " + professor);
             return ResponseEntity.ok(professor);
 
         } catch (Exception e) {
-            System.err.println("❌ Erro ao atualizar professor com ID: " + id);
             e.printStackTrace();
 
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Erro ao atualizar professor: " + e.getMessage());
-        } finally {
-            System.out.println("🔚 [UPDATE PROFESSOR] Finalizando requisição de atualização.\n");
         }
     }
 

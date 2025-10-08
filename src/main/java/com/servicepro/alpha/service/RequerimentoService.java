@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.servicepro.alpha.util.TokenGenerator.generateSalToken;
+
 @Service
 public class RequerimentoService {
 
@@ -32,6 +34,11 @@ public class RequerimentoService {
     public List<Requerimento> obterTodosRequerimentos() {
         return repository.findAll();
     }
+
+    public Requerimento obterPorToken(String token) {
+        return repository.findByToken(token);
+    }
+
 
     public Requerimento buscarRequerimento(String dia, Horario horarioInicial, Horario horarioFinal) {
         return repository.findByReq(horarioInicial,horarioFinal,dia);
@@ -62,7 +69,7 @@ public class RequerimentoService {
         requerimento.setEquipament(dto.getEquipament());
         requerimento.setObservations(dto.getObservations());
         requerimento.setStatus(dto.getStatus());
-        requerimento.setToken(Util.generateToken());
+        requerimento.setToken(generateSalToken());
         requerimento.setCreatedAt(LocalDate.now());
         return repository.save(requerimento);
     }
@@ -177,4 +184,7 @@ public class RequerimentoService {
         return true;
     }
 
+    public List<Requerimento> obterPorData(String dataSolicitada) {
+        return repository.findByDate(dataSolicitada);
+    }
 }

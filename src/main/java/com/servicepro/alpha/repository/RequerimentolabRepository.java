@@ -9,6 +9,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Repository
 public interface RequerimentolabRepository extends JpaRepository<RequerimentoLaboratorio,Long> {
 
@@ -27,4 +30,6 @@ public interface RequerimentolabRepository extends JpaRepository<RequerimentoLab
     @Query("SELECT r FROM RequerimentoLaboratorio r WHERE r.token = :token")
     RequerimentoLaboratorio findByToken(@Param("token") String token);
 
+    @Query("SELECT r FROM RequerimentoLaboratorio r WHERE r.dia = :dataSolicitada")
+    List<RequerimentoLaboratorio> findByDate(String  dataSolicitada);
 }

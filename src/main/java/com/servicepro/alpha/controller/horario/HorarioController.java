@@ -19,7 +19,7 @@ import java.util.List;
 public class HorarioController {
 
     @Autowired
- private HorarioService service;
+    private HorarioService service;
 
     @GetMapping
     public ResponseEntity<?> getSchedule() {
@@ -30,7 +30,6 @@ public class HorarioController {
 
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("⚠️ Erro ao buscar horários: " + e.getMessage());
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Erro ao buscar horários.");
@@ -40,8 +39,6 @@ public class HorarioController {
 
     @PostMapping
     public ResponseEntity<?> createSchedule(@RequestBody HorarioDTO dto) {
-        System.out.println("Horario recebido: " + dto);
-
         try {
             // Verificando se já existe um professor cadastrado
             Horario horarioExistente = service.buscarHorarioPorNome(dto.getName());

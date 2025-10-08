@@ -29,6 +29,7 @@ public class RequerimentoLaboratorio {
     private String emailDocente;
     private String disciplina;
     private String curso;
+    private String tipoLab;
     private String unidadeAcademica;
     private String tituloAula;
     private String dia;
@@ -36,6 +37,7 @@ public class RequerimentoLaboratorio {
     private String token;
     private String numeroGruposAlunos;
     private String nomeTecnicoLaboratorista;
+    private String confirmacaoLeitura;
 
     @ManyToOne
     @JoinColumn(name = "horario_inicio_id")

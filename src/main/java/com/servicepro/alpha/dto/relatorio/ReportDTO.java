@@ -11,10 +11,7 @@ import java.util.List;
 
 @Data
 public class ReportDTO {
+    private String reportType;
     private LocalDate startDate;
     private LocalDate endDate;
-    private String reportType;
-    private String requerimentsType;
-    private List<Requerimento> requerimentos;
-    private List<RequerimentoLaboratorio> requerimentoLaboratorios;
 }

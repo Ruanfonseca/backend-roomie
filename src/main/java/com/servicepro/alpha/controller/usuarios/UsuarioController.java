@@ -58,7 +58,7 @@ public class UsuarioController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id,@RequestBody UsuarioDTO dto) {
-       System.out.println(dto);
+
         try {
             Usuario usuario = service.atualizarUsuario(id, dto);
             if (usuario == null) {

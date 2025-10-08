@@ -32,8 +32,7 @@ public class UserService {
 
     public Usuario salvarUsuario(UsuarioDTO dto) {
 
-        System.out.println("Usuario a ser salvo");
-        System.out.println(dto);
+
 
         Usuario usuario = new Usuario();
         usuario.setName(dto.getName());
