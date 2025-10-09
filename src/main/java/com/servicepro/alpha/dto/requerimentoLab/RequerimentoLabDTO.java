@@ -15,6 +15,7 @@ import java.util.List;
 public class RequerimentoLabDTO {
     private String curso;
     private String dia;
+    private String token;
     private String disciplina;
     private String emailDocente;
     private Horario horarioFinal;

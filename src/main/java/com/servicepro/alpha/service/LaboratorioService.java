@@ -68,4 +68,6 @@ public class LaboratorioService {
         repository.deleteById(Long.valueOf(id));
         return true;
     }
+
+
 }

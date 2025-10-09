@@ -58,6 +58,7 @@ public class AuthController {
             UserInfo userInfo = new UserInfo(
                     String.valueOf(usuario.getId()),
                     usuario.getEmail(),
+                    usuario.getRegisterNumber(),
                     usuario.getName(),
                     role
             );

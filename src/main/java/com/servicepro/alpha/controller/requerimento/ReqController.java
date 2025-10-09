@@ -2,11 +2,14 @@ package com.servicepro.alpha.controller.requerimento;
 
 import com.servicepro.alpha.domain.Requerimento;
 import com.servicepro.alpha.domain.Sala;
+import com.servicepro.alpha.domain.Usuario;
 import com.servicepro.alpha.dto.requerimento.RequerimentoBaixaDTO;
 import com.servicepro.alpha.dto.requerimento.RequerimentoDTO;
 import com.servicepro.alpha.dto.requerimento.RequerimentoResponseDTO;
 import com.servicepro.alpha.dto.sala.SalaDTO;
+import com.servicepro.alpha.enums.Role;
 import com.servicepro.alpha.service.RequerimentoService;
+import com.servicepro.alpha.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +23,9 @@ public class ReqController {
 
     @Autowired
     RequerimentoService service;
+
+    @Autowired
+    UserService userService;
 
     @GetMapping
     public ResponseEntity<?> getReqs() {
@@ -96,27 +102,42 @@ public class ReqController {
         }
     }
 
-    @PostMapping("/baixa")
-    public ResponseEntity<?> baixaRequerimento(@RequestBody RequerimentoBaixaDTO dto) {
+    @PutMapping("/{id}/baixa")
+    public ResponseEntity<?> baixaRequerimento(
+            @PathVariable String id,
+            @RequestBody RequerimentoBaixaDTO dto) {
+
         try {
-            Requerimento reqExistente = service.buscarPorId(dto.getId());
+            Requerimento reqExistente = service.buscarPorId(Long.valueOf(id));
+            Usuario usuarioExistente = userService.buscarPorMatricula(
+                    dto.getApprovedBy() != null ? dto.getApprovedBy() : dto.getRejectedBy()
+            );
 
             if (reqExistente == null) {
                 return ResponseEntity
-                        .status(HttpStatus.CONFLICT)
+                        .status(HttpStatus.NOT_FOUND)
                         .body("Esse requerimento não existe");
             }
 
-            service.darBaixa(reqExistente);
+            if (usuarioExistente == null ||
+                    (usuarioExistente.getRole() != Role.LOGISTICA &&
+                            usuarioExistente.getRole() != Role.ADMIN)) {
+                return ResponseEntity
+                        .status(HttpStatus.FORBIDDEN)
+                        .body("Funcionário não credenciado para dar baixa");
+            }
+
+            // Chama o service passando DTO
+            service.darBaixa(reqExistente.getId(), dto,usuarioExistente);
 
             return ResponseEntity.ok().build();
 
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Erro no servidor.");
         }
-
     }
 
     @PostMapping("/search/token")
@@ -137,18 +158,5 @@ public class ReqController {
         }
     }
 
-//    @GetMapping("/agenda")
-//    public ResponseEntity<?> getBuscaParaAgenda() {
-//
-//        try {
-//            List<RequerimentoResponseDTO> reqsAgenda = service.buscandoParaAgenda();
-//            return ResponseEntity.ok(reqsAgenda);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return ResponseEntity
-//                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-//                    .body("Erro ao buscar requerimentos para tela de agenda .");
-//        }
-//    }
 }
 

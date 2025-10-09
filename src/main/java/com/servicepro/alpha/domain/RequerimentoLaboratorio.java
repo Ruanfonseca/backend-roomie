@@ -52,6 +52,15 @@ public class RequerimentoLaboratorio {
     @JoinColumn(name = "laboratorio_id")
     private Laboratorio laboratorio;
 
+    @OneToOne
+    @JoinColumn(name = "required_by_id")
+    private Professor requiredBy;
+
+    @OneToOne
+    @JoinColumn(name = "user_action_id")
+    private Usuario userOfAction;
+
+
     private String numeroAluno;
 
     @ElementCollection
@@ -61,9 +70,12 @@ public class RequerimentoLaboratorio {
     )
     private List<UtilitariosDTO> utilitarios = new ArrayList<>();
 
-    private String aprovadoPorquem;
+    private String approvedReason;
     private String status;
-    private String rejeitadoPorquem;
+    private String observations;
+    private String approvedBy;
+    private String rejectedBy;
+    private String rejectionReason;
     private LocalDate createdAt;
     private LocalDate updatedAt;
 }

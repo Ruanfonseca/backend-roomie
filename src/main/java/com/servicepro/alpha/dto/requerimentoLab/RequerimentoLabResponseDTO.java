@@ -11,11 +11,14 @@ import java.util.List;
 @Data
 public class RequerimentoLabResponseDTO extends RequerimentoLabDTO{
     private Long id;
+    private Long laboratorioId;
     private Laboratorio laboratorio;
-    private String token;
-    private String aprovadoPorquem;
-    private String rejeitadoPorquem;
-    private LocalDate createdAt;
-    private LocalDate updatedAt;
+    private String observations;
+    private String status;
+    private String approvedBy;
+    private String rejectedBy;
+    private String rejectionReason;
+    private String approvedReason;
+    private String updatedAt;
 
 }

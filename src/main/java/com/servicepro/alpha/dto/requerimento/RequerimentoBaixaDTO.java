@@ -6,10 +6,12 @@ import lombok.Data;
 @Data
 public class RequerimentoBaixaDTO extends RequerimentoDTO {
     private Long id;
-    private Sala room;
+    private Long roomId;
     private String observations;
     private String status;
     private String approvedBy;
+    private String rejectedBy;
     private String rejectionReason;
+    private String approvedReason;
     private String updatedAt;
 }

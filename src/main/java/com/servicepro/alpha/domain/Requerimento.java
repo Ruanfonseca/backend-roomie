@@ -46,11 +46,17 @@ public class Requerimento {
     private String blockPrefer;
     private String typeOfRoom;
     private String registration;
+    private String rejectedBy;
+    private String approvedReason;
 
     @ElementCollection
     @CollectionTable(name = "equipament", joinColumns = @JoinColumn(name = "equipament_id"))
     @Column(name = "equipament")
     private List<String> equipament = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name = "user_action_id")
+    private Usuario userOfAction;
 
     private String observations;
     private String status;
